@@ -1,3 +1,65 @@
+async function load(url) {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        const text = await response.text();
+        alert(text);
+        return null;
+    }
+
+    const html = await response.text();
+
+    const pattern_open = /<\s*template[^>]*>/g;
+    const pattern_close = /<\/\s*template[^>]*>/g;
+
+    const matches = [];
+
+    let match_open = null;
+    let match_close = null;
+    let state = "close";
+
+    do {
+        match_open = pattern_open.exec(html);
+        if (match_open && state === "close") {
+            matches.push([match_open.index, match_open[0].length]);
+            state = "open";
+        }
+        match_close = pattern_close.exec(html);
+        if (match_close && state === "open") {
+            matches.push([match_close.index, match_close[0].length]);
+            state = "close";
+        }
+    } while (match_open);
+
+    const pairs = matches.reduce((pairs, value, index) => {
+        index % 2 !== 0 || pairs.push([value, matches[index + 1]]);
+        return pairs;
+    }, []);
+
+    const components = pairs.reduce((templates, [open, close]) => {
+        templates.push([
+            html.substring(open[0] + open[1], close[0]),
+            (html.substring(open[0], open[0] + open[1]).match(/data-name="([^"]*)"/) || [])[1]
+        ]);
+        return templates;
+    }, []).map(([template_html, name]) => {
+        const template = document.createElement("template");
+        template.innerHTML = template_html;
+        const node = document.importNode(template.content, true);
+        const component = node.firstElementChild;
+        component.dataset.name = name;
+        return component;
+    });
+
+    const div = document.createElement("div");
+
+    div.dataset.source = url;
+
+    components.forEach(component => div.appendChild(component));
+
+    return ubee(div);
+}
+
 function fire(node, channel, detail) {
     node.dispatchEvent(new CustomEvent(channel, {
         detail
@@ -92,7 +154,7 @@ function ubee_style(element) {
     });
 }
 
-function ubee(template, ...selectors) {
+function ubee_template(template, ...selectors) {
     if (typeof template === "string") {
         const html = template;
         template = document.createElement("template");
@@ -100,22 +162,26 @@ function ubee(template, ...selectors) {
     }
 
     // Get components from selectors
-    const components = selectors.length === 0 ? [
-        document.importNode(template.content, true).firstElementChild
-    ] :
-    selectors.map(selector => {
-        const node = document.importNode(template.content, true);
-        return node.querySelectorAll(selector);
-    }).reduce((components, nodes) => {
-        components.push(...nodes);
-        return components;
-    }, []);
+    const components = selectors.length === 0 ?
+        [document.importNode(template.content, true).firstElementChild]
+        :
+        selectors.map(selector => {
+            const node = document.importNode(template.content, true);
+            return node.querySelectorAll(selector);
+        }).reduce((components, nodes) => {
+            components.push(...nodes);
+            return components;
+        }, []);
 
+    return ubee(...components);
+}
+
+function ubee(...components) {
     // Process each component
     components.forEach(element => {
         ubee_event(element);
         ubee_listen(element);
-        
+
         element.addEventListener(":update", () => {
             ubee_attribute(element);
             ubee_style(element);
@@ -123,6 +189,4 @@ function ubee(template, ...selectors) {
 
         fire(element, ":update");
     });
-
-    return components;
 }
