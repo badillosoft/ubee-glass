@@ -173,7 +173,13 @@ function ubee_template(template, ...selectors) {
             return components;
         }, []);
 
-    return ubee(...components);
+    const div = document.createElement("div");
+
+    div.dataset.template = Math.random().toString(32).slice(2);
+
+    components.forEach(component => div.appendChild(component));
+
+    return div;
 }
 
 function ubee(...components) {
