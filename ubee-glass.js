@@ -57,7 +57,7 @@ async function load(url) {
 
     components.forEach(component => div.appendChild(component));
 
-    return ubee(div);
+    return div;
 }
 
 function fire(node, channel, detail) {
