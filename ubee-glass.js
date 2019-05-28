@@ -100,22 +100,22 @@ function ubee(template, ...selectors) {
     }
 
     // Get components from selectors
-    const components = selectors.length === 0 ? [
+    const components = selectors.length === 0 ?
         document.importNode(template.content, true).firstElementChild
-    ] :
-    selectors.map(selector => {
-        const node = document.importNode(template.content, true);
-        return node.querySelectorAll(selector);
-    }).reduce((components, nodes) => {
-        components.push(...nodes);
-        return components;
-    }, []);
+        :
+        selectors.map(selector => {
+            const node = document.importNode(template.content, true);
+            return node.querySelectorAll(selector);
+        }).reduce((components, nodes) => {
+            components.push(...nodes);
+            return components;
+        }, []);
 
     // Process each component
     components.forEach(element => {
         ubee_event(element);
         ubee_listen(element);
-        
+
         element.addEventListener(":update", () => {
             ubee_attribute(element);
             ubee_style(element);
