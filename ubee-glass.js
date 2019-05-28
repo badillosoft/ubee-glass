@@ -100,7 +100,10 @@ function ubee(template, ...selectors) {
     }
 
     // Get components from selectors
-    const components = selectors.map(selector => {
+    const components = selectors.length === 0 ? [
+        document.importNode(template.content, true).firstElementChild
+    ] :
+    selectors.map(selector => {
         const node = document.importNode(template.content, true);
         return node.querySelectorAll(selector);
     }).reduce((components, nodes) => {
