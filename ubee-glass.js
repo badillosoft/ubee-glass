@@ -189,4 +189,6 @@ function ubee(...components) {
 
         fire(element, ":update");
     });
+
+    return components;
 }
