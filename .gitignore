@@ -1,2 +1,6 @@
 test/
 dep/
+test/
+ui/
+lab/
+*.zip
