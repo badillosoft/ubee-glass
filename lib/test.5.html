@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Test</title>
+</head>
+<body>
+    <div data-test="text-editable" hidden>
+        <datalist data-interface="text-editable-label">
+            <option data-fire-click="@edit:open"></option>
+            <option data-listen-at-edit-on-open="self.hidden = true"></option>
+            <option data-listen-at-edit-on-close="self.hidden = false"></option>
+        </datalist>
+        <datalist data-interface="text-editable-input">
+            <option data-event-on-update="self.hidden = true"></option>
+            <option data-fire-blur="@edit:close"></option>
+            <option data-listen-at-edit-on-open="self.hidden = false"></option>
+            <option data-listen-at-edit-on-open="self.focus()"></option>
+            <option data-listen-at-edit-on-open="self.select()"></option>
+            <option data-listen-at-edit-on-close="self.hidden = true"></option>
+        </datalist>
+        <div data-class="text-editable-test">
+            <style>
+                [data-class="text-editable-test"] {
+                    background-color: whitesmoke;
+                    padding: 20px;
+                }
+            </style>
+            <h1>Text Editable - Test</h1>
+            <span data-extend="text-editable-label">Click to edit...</span>
+            <input data-extend="text-editable-input" type="text"
+                placeholder="Write something...">
+        </div>
+    </div>
+
+    <div data-component="text-editable">
+        <span data-extend="text-editable-label">Click to edit...</span>
+        <input data-extend="text-editable-input" type="text"
+            placeholder="Write something...">
+    </div>
+    
+    <script src="./ubee-glass.js"></script>
+    <script>
+        document.body.querySelectorAll(`[data-test]`).forEach(component => ubeefy(component));
+        document.body.querySelectorAll(`[data-component]`).forEach(component => ubeefy(component));
+    </script>
+</body>
+</html>

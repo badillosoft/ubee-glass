@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Test</title>
+</head>
+<body>
+    <div>
+        <button
+            data-fire-click="@ping"
+            data-listen-at-ping="self.disabled = true"
+            data-listen-at-pong="self.disabled = false"
+        >Ping</button>
+        <button disabled
+            data-fire-click="@pong"
+            data-listen-at-ping="self.disabled = false"
+            data-listen-at-pong="self.disabled = true"
+        >Pong</button>
+    </div>
+    
+    <script src="./ubee-glass.js"></script>
+    <script>
+        ubeefy(document.querySelector("div"));
+    </script>
+</body>
+</html>

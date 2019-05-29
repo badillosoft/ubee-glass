@@ -1,0 +1,49 @@
+function VariantEventDecorator(pattern, mutator) {
+    return component => {
+        match(pattern, variant => {
+            mutator(component, variant);
+        });
+    }
+}
+
+function MatchFilter(pattern, next) {
+    return key => key.match(pattern) ? next(key.match(pattern)[1]) : null;
+}
+
+function ubee_event() {
+    return VariantEventDecorator(/event-(.*)/, (component, variant) => {
+        component.addEventListener(variant, e => {
+            console.log(e);
+        });
+    });
+}
+
+ubeelang(key)
+    .transform(key => key.replace(/[A-Z]/g, string => `-${string.toLowerCase()}`))
+    .transform(key => (key.match(/event-(.*)/) || [])[1])
+    .exists()
+    .transform(channel => channel.replace(/-?on-/g, ":"))
+    .transform(channel => channel.replace(/-?in-/g, "#"))
+    .transform(channel => channel.replace(/-?at-/g, "@"))
+    .exists()
+    .process(channel => 
+        ubeelang(element)
+            .handle(channel, 
+                event =>
+                    new Function(
+                        "self",
+                        "parent",
+                        "root",
+                        "event",
+                        "channel", 
+                        value
+                    )(
+                        element,
+                        element.parentNode,
+                        root,
+                        event,
+                        channel
+                    )
+            )
+    )
+    .done()

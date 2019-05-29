@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Test</title>
+</head>
+<body>
+    <datalist data-interface="ping">
+        <option data-fire-click="@ping"></option>
+        <option data-listen-at-ping="self.disabled = true"></option>
+        <option data-listen-at-pong="self.disabled = false"></option>
+    </datalist>
+
+    <datalist data-interface="pong">
+        <option data-event-on-update="self.disabled = true"></option>
+        <option data-fire-click="@pong"></option>
+        <option data-listen-at-ping="self.disabled = false"></option>
+        <option data-listen-at-pong="self.disabled = true"></option>
+    </datalist>
+
+    <div data-component="ping-pong">
+        <button data-extend="ping">Ping</button>
+        <button data-extend="ping">Ping</button>
+        <button data-extend="ping">Ping</button>
+        <button data-extend="pong">Pong</button>
+        <button data-extend="pong">Pong</button>
+        <button data-extend="pong">Pong</button>
+    </div>
+
+    <div data-component="ping-pong">
+        <button data-extend="ping">Ping</button>
+        <button data-extend="ping">Ping</button>
+        <button data-extend="ping">Ping</button>
+        <button data-extend="pong">Pong</button>
+        <button data-extend="pong">Pong</button>
+        <button data-extend="pong">Pong</button>
+    </div>
+
+    <div data-component="ping-pong">
+        <button data-extend="ping">Ping</button>
+        <button data-extend="pong">Pong</button>
+        <button data-extend="pong">Pong</button>
+    </div>
+
+    <div data-component="pepe">
+        <button data-extend="ping">Ping</button>
+        <button data-extend="pong">Pong</button>
+    </div>
+    
+    <script src="./ubee-glass.js"></script>
+    <script>
+        document.body.querySelectorAll(`[data-component]`).forEach(component => ubeefy(component));
+    </script>
+</body>
+</html>

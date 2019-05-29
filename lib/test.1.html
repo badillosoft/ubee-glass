@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Test</title>
+</head>
+<body>
+    <datalist data-interface="text-editable">
+        <option data-event-on-update="
+            let span = self.querySelector('span');
+            let input = self.querySelector('input');
+
+            if (!span) {
+                span = document.createElement('span');
+                span.textContent = 'Escribe algo...';
+                self.appendChild(span);
+            }
+
+            if (!input) {
+                input = document.createElement('input');
+                input.placeholder = 'Escribe algo...';
+                input.hidden = true;
+                self.appendChild(input);
+            }
+
+            span.addEventListener('click', () => {
+                span.hidden = true;
+                input.hidden = false;
+                input.focus();
+                input.select();
+            });
+
+            input.addEventListener('blur', () => {
+                span.textContent = input.value || 'Escribe algo...';
+                span.hidden = false;
+                input.hidden = true;
+            });
+        "></option>
+    </datalist>
+
+    <div data-extend="text-editable">
+        <span>Escribe algo...</span>
+        <input type="text" placeholder="Escribe algo..." hidden>
+    </div>
+
+    <div data-extend="text-editable">ji</div>
+    
+    <script src="./ubee-glass.js"></script>
+    <script>
+        const textEditable = document.createElement("div");
+        textEditable.id = "123";
+        textEditable.dataset.extend = "text-editable | automount";
+        document.body.appendChild(textEditable);
+
+        ubeefy(document.body);
+    </script>
+</body>
+</html>

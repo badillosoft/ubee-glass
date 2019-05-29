@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Test</title>
+</head>
+<body>
+    <style>
+        input {
+            width: 100px;
+        }
+    </style>
+
+    <datalist data-interface="test">
+        <option data-event-on-update="alert('on update')"></option>
+        <option data-event-click="alert('click')"></option>
+    </datalist>
+
+    <datalist data-interface="test-2">
+        <option data-event-on-update="alert('on update 2')"></option>
+        <option data-event-click="alert('click 2')"></option>
+    </datalist>
+
+    <div data-extend="test | test-2">
+        <button>hi</button>
+        <button>there</button>
+    </div>
+    <script src="./ubee-glass.js"></script>
+    <script>
+        ubeefy(document.querySelector(`div`));
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<div data-test="text-editable" hidden>
+    <datalist data-interface="text-editable-label">
+        <option data-fire-click="@edit:open"></option>
+        <option data-listen-at-edit-on-open="self.hidden = true"></option>
+        <option data-listen-at-edit-on-close="
+            self.textContent = root.dataset.value || 'Click to edit...'
+        "></option>
+        <option data-listen-at-edit-on-close="self.hidden = false"></option>
+        <option data-fire-focus="@edit:open"></option>
+    </datalist>
+    <datalist data-interface="text-editable-input">
+        <option data-event-on-update="self.hidden = true"></option>
+        <option data-fire-blur="@edit:close"></option>
+        <option data-listen-at-edit-on-open="self.hidden = false"></option>
+        <option data-listen-at-edit-on-open="self.focus()"></option>
+        <option data-listen-at-edit-on-open="self.select()"></option>
+        <option data-event-keyup="root.dataset.value = self.value"></option>
+        <option data-listen-at-edit-on-close="self.hidden = true"></option>
+    </datalist>
+    <div data-class="text-editable-test">
+        <style>
+            [data-class="text-editable-test"] {
+                background-color: whitesmoke;
+                padding: 20px;
+            }
+        </style>
+        <h1>Text Editable - Test</h1>
+        <span data-extend="text-editable-label" tabindex="0">Click to edit...</span>
+        <input data-extend="text-editable-input" type="text"
+            placeholder="Write something...">
+    </div>
+</div>
+
+<script src="../lib/ubee-glass.js"></script>
+<script>
+    document.body.querySelectorAll(`[data-test]`).forEach(component => ubeefy(component));
+</script>
