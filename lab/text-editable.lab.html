@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Lab</title>
+    <style>
+        img {
+            border: 10px solid tomato;
+        }
+    </style>
+</head>
+<body>
+    <script src="/ubee-glass.js"></script>
+    <script>
+        (async () => {
+            for (let i = 0; i < 100; i++) {
+                let component = await load("/ui/text-editable.html");
+                document.body.appendChild(component);
+            }
+        })();
+    </script>
+</body>
+</html>
