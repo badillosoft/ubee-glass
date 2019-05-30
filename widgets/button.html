@@ -1,0 +1,100 @@
+<div data-lib="button">
+    <datalist data-interface="button-lock">
+        <option data-listen-at-lock-in-all="self.disabled = true"></option>
+        <option data-listen-at-unlock-in-all="self.enable = true"></option>
+        <option data-listen-at-button-on-lock="self.disabled = true"></option>
+        <option data-listen-at-button-on-unlock="self.enable = true"></option>
+    </datalist>
+    <datalist data-interface="button-clone">
+        <option data-event-click="ubeeload('/widgets/text-editable', parent)"></option>
+        <option data-event-click="ubeeload('/widgets/button', self)"></option>
+    </datalist>
+    <style>
+        [data-component="button"] {
+            display: flex;
+            background-color: whitesmoke;
+            padding: 20px;
+        }
+
+        [data-component="button"] span {
+            flex-grow: 1;
+            color: cornflowerblue;
+            border-bottom: 2px solid cornflowerblue;
+            padding: 4px;
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</div>
+
+<div data-test="button" hidden>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            align-items: stretch;
+        }
+
+        [data-test="button"] {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        [data-component="button"] {
+            margin: 20px;
+        }
+
+        .test-controls {
+            display: flex;
+            flex-direction: column;
+            border: 2px dotted lightsteelblue;
+            margin: 20px;
+        }
+
+        .control {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .control * {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+    <h1>Button</h1>
+    <div data-component="button">
+        <button data-extend="button-clone">Hello world</button>
+    </div>
+    <div class="test-controls">
+        <div class="control">
+            <button data-fire-click="@edit:show">Abrir</button>
+            <button data-fire-click="@edit:close">Cerrar</button>
+        </div>
+        <div class="control">
+            <span>Modo de sólo lectura</span>
+            <input type="checkbox" data-event-change="
+                    root.dataset.readonly = self.checked ? 'true' : 'false'
+                ">
+        </div>
+    </div>
+</div>
+
+<script src="../lib/ubee-glass.js"></script>
+<script>
+    document.body.querySelectorAll(`[data-test]`).forEach(component => ubeefy(component));
+</script>
