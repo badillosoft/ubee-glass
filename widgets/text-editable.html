@@ -1,12 +1,12 @@
-<div data-test="text-editable" hidden>
+<div data-lib="text-editable">
     <datalist data-interface="text-editable-label">
-        <option data-fire-click="@edit:open"></option>
         <option data-listen-at-edit-on-open="self.hidden = true"></option>
         <option data-listen-at-edit-on-close="
-            self.textContent = root.dataset.value || 'Click to edit...'
+            self.textContent = root.dataset.value || 'Escribe algo...'
         "></option>
         <option data-listen-at-edit-on-close="self.hidden = false"></option>
-        <option data-fire-focus="@edit:open"></option>
+        <option data-fire-focus="@edit:show"></option>
+        <option data-burn-at-edit-on-show="[^readonly] @edit:open"></option>
     </datalist>
     <datalist data-interface="text-editable-input">
         <option data-event-on-update="self.hidden = true"></option>
@@ -17,17 +17,99 @@
         <option data-event-keyup="root.dataset.value = self.value"></option>
         <option data-listen-at-edit-on-close="self.hidden = true"></option>
     </datalist>
-    <div data-class="text-editable-test">
-        <style>
-            [data-class="text-editable-test"] {
-                background-color: whitesmoke;
-                padding: 20px;
-            }
-        </style>
-        <h1>Text Editable - Test</h1>
-        <span data-extend="text-editable-label" tabindex="0">Click to edit...</span>
+    <style>
+        [data-component="text-editable"] {
+            display: flex;
+            background-color: whitesmoke;
+            padding: 20px;
+        }
+        [data-component="text-editable"] span {
+            flex-grow: 1;
+            color: cornflowerblue;
+            border-bottom: 2px solid cornflowerblue;
+            padding: 4px;
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        [data-component="text-editable"] input {
+            flex-grow: 1;
+            outline: none;
+            appearance: none;
+            border: 0px solid transparent;
+            color: hotpink;
+            border-bottom: 2px solid hotpink;
+            padding: 4px;
+            font-size: 24px;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: transparent;
+        }
+    </style>
+</div>
+
+<div data-test="text-editable" hidden>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            align-items: stretch;
+        }
+
+        [data-test="text-editable"] {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        [data-component="text-editable"] {
+            margin: 20px;
+        }
+
+        .test-controls {
+            display: flex;
+            flex-direction: column;
+            border: 2px dotted lightsteelblue;
+            margin: 20px;
+        }
+
+        .control {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .control * {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+        }
+    </style>
+    <h1>Text Editable</h1>
+    <div data-component="text-editable">
+        <span data-extend="text-editable-label" tabindex="0">Escribe algo...</span>
         <input data-extend="text-editable-input" type="text"
-            placeholder="Write something...">
+            placeholder="Escribe algo...">
+    </div>
+    <div class="test-controls">
+        <div class="control">
+            <button data-fire-click="@edit:show">Abrir</button>
+            <button data-fire-click="@edit:close">Cerrar</button>
+        </div>
+        <div class="control">
+            <span>Modo de sólo lectura</span>
+            <input type="checkbox" data-event-change="
+                root.dataset.readonly = self.checked ? 'true' : 'false'
+            ">
+        </div>
     </div>
 </div>
 
