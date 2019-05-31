@@ -1,0 +1,42 @@
+<div data-lib="button">
+    <datalist data-interface="button-alert">
+        <option data-event-click="alert('hello')"></option>
+    </datalist>
+</div>
+
+<div data-lib="button-exp">
+    <datalist data-interface="button-alert">
+        <option data-event-click="alert('hello')"></option>
+    </datalist>
+</div>
+
+<div data-component="button-test">
+    <div data-module="button">
+        <datalist data-source="/widgets-v2/button.html">
+            <option data-install-lib="button"></option>
+        </datalist>
+    </div>
+    <style>
+        [data-component="button-test"] button {
+            border: 0px solid transparent;
+        }
+    </style>
+    <button data-extend="button-alert">button-test</button>
+    <span>button-test <i>a</i></span>
+</div>
+
+<div data-component="button-default">
+    <button data-extend="button-alert">button-default</button>
+</div>
+
+<div data-component="button-demo">
+    <button data-extend="button-alert">button-demo</button>
+</div>
+
+<div data-component="button-demo-2">
+    <button data-extend="button-alert">button-demo 2</button>
+</div>
+
+<div data-component="button-demo-3" data-version="v1.0">
+    <button data-extend="button-alert">button-demo 3</button>
+</div>

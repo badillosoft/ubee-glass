@@ -1,0 +1,78 @@
+<div data-lib="galley">
+    <datalist data-interface="gallery-image-generator">
+        <option data-event-on-images="
+            for (let i = 0; i < Number(self.dataset.count || 1); i++) {
+                let img = document.createElement('img');
+                img.src = 'http://placehold.it/200';
+                self.appendChild(img);
+            }
+        "></option>
+    </datalist>
+    <style>
+        [data-class="gallery"] {
+            padding: 20px;
+        }
+    </style>
+</div>
+
+<div data-class="gallery" data-component="foo">
+    <style>
+        [data-component="foo"] {
+            background-color: cornflowerblue;
+        }
+    </style>
+    <!-- Demo 1 -->
+    <h1>Gallery Foo</h1>
+    <div data-extend="gallery-image-generator"
+        data-event-on-update="self.dispatchEvent(new CustomEvent(':images'))"
+        data-count="3"
+    ></div>
+</div>
+
+<div data-class="gallery" data-component="bar">
+    <style>
+        [data-component="bar"] {
+            background-color: hotpink;
+        }
+    </style>
+    <!-- Demo 2 -->
+    <h1>Gallery Bar</h1>
+    <div data-extend="gallery-image-generator"
+        data-listen-at-images="self.dispatchEvent(new CustomEvent(':images'))"
+        data-count="10"
+    >
+        <button data-fire-click="@images">10 images</button>
+    </div>
+</div>
+
+<!-- Demo 3 -->
+<div data-class="gallery" data-component="zip">
+    <style>
+        [data-component="zip"] {
+            background-color: lightgreen;
+            padding: 20px;
+        }
+    </style>
+    <h1>Gallery Zip</h1>
+    <div data-class="gallery" data-component="tar">
+        <style>
+            [data-component="tar"] {
+                background-color: lightblue;
+            }
+        </style>
+        <!-- Demo 4 -->
+        <h1>Gallery Tar</h1>
+    </div>
+    <div data-class="gallery" data-component="giz">
+        <style>
+            [data-component="giz"] {
+                background-color: lightpink;
+            }
+        </style>
+        <!-- Demo 5 -->
+        <h1>Gallery Giz</h1>
+    </div>
+</div>
+
+<script src="../lib/ubee-glass.js"></script>
+<script>ubeefy(document.body)</script>
