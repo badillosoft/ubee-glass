@@ -43,7 +43,7 @@
     <div>
         <h1>Parent</h1>
         <input type="text" placeholder="Escribe algo..."
-            data-event-on-value="self.value = event.detail"
+            data-subscribe-on-value="self.value = event.detail"
             data-emit-and-emit-keyup-to-on-value="self.value.toUpperCase()"
         >
         <input type="text" placeholder="Escucho self"
@@ -63,7 +63,7 @@
             data-listen-and-emit-at-send-to-on-value="event.detail"
         >
         <button
-            data-event-at-send="alert(event.detail)"
+            data-subscribe-at-send="alert(event.detail)"
             data-event-and-emit-click-to-at-send="`hi self to self`"
         >
             self <i class="fas fa-paper-plane fa-2x"></i>
