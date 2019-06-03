@@ -1,0 +1,86 @@
+<div data-component="chat-component">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        [data-component="chat-component"] {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            height: 100%;
+            padding: 40px;
+            background-color: #222222;
+        }
+
+        .chat-container {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: calc(100% - 80px);
+            display: flex;
+            flex-direction: column;
+            background-color: whitesmoke;
+            overflow-y: auto;
+        }
+        .chat-container .chat-bubble {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 24px;
+        }
+        .chat-container .left {
+            align-self: flex-start;
+        }
+        .chat-container .right {
+            align-self: flex-end;
+        }
+
+        .chat-controls {
+            flex-grow: 1;
+            width: 100%;
+            height: 80px;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: beige;
+        }
+        .chat-controls input {
+            flex-grow: 1;
+        }
+    </style>
+    <div class="chat-container" 
+        data-look-and-emit-in-new-message-to-insert-message="data"
+        data-subscribe-insert-message="
+            const span = document.createElement('span');
+            span.className = `chat-bubble ${data.className}`;
+            span.textContent = `${data.id}: ${data.text}`;
+            self.appendChild(span);
+        "
+    >
+    </div>
+    <div class="chat-controls">
+        <input type="text" placeholder="exribe un texto"
+            data-event-and-notify-keyup-to-at-send="event.key === 'Enter' ? self.value : cancel()"
+            data-join-and-fire-at-send-to-in-new-message="{id, text: self.value}"
+            data-join-and-emit-at-send-to-on-clear="null"
+            data-subscribe-on-clear="self.value = ''; self.focus()"
+            data-listen-and-watch-in-new-message-to-in-new-message="{...data, className: data.id === id ? 'right' : 'left' }"
+        >
+        <button
+            data-event-and-notify-click-to-at-send="null"
+        >enviar</button>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat App</title>
+</head>
+<body>
+    <div data-glass="app">
+        <style>
+            [data-glass="app"] {
+                height: 100%;
+                display: flex;
+                align-items: stretch;
+                background-color: lightcoral;
+            }
+            [data-glass="app"] > [data-component] {
+                flex-grow: 1;
+            }
+        </style>
+        <div data-module="app-module">
+            <datalist data-source="/widgets-abs/chat.html">
+                <option data-install-component="chat-component"></option>
+            </datalist>
+        </div>
+        <div data-use="chat-component"></div>
+        <div data-use="chat-component"></div>
+        <div data-use="chat-component"></div>
+        <div data-use="chat-component"></div>
+    </div>
+    <script src="../lib/ubee-glass-v3.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>
