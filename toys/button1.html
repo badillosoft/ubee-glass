@@ -1,0 +1,16 @@
+<div data-component="button">
+    <div data-module="image">
+        <datalist data-source="/widgets-v2/image.html">
+            <option data-install-component="image-test"></option>
+        </datalist>
+    </div>
+    <button 
+        data-mount-in-self-when-event-click="image-test"
+        data-event-mouseover="self.textContent = Math.random().toString(32).slice(2)"
+        data-event-on-update="self.textContent = Math.random().toString(32).slice(2)"
+    >Hola mundo</button>
+</div>
+
+<div data-component="button2">
+    <button data-event-and-fire-click-to-alert="alert('hi')">Hola mundo 2</button>
+</div>

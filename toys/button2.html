@@ -1,0 +1,22 @@
+<div data-lib="button-lib">
+    <datalist data-interface="button-interface">
+        <option data-event-click="alert('hi there 2')"></option>
+        <option data-event-mouseover="self.style.color = 'red'"></option>
+        <option data-event-mouseout="self.style.color = 'blue'"></option>
+        <option data-event-on-update="
+            const config = JSON.parse(self.dataset.config || '{}');
+            for (let url of (config.urls || [])) {
+                // ...
+            }
+        "></option>
+    </datalist>
+</div>
+
+<div data-component="button-component">
+    <div data-module="button-module">
+        <datalist data-source="/toys/button2.html">
+            <option data-install-lib="button-lib"></option>
+        </datalist>
+    </div>
+    <button data-extend="button-interface">Mucha lógica</button>
+</div>

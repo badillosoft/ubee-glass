@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Toy App</title>
+</head>
+<body>
+    <div data-module="button-module">
+        <datalist data-source="/toys/button2.html">
+            <option data-install-lib="button-lib"></option>
+        </datalist>
+    </div>
+
+    <div data-glass="app">
+        <span data-extend="button-interface">Hola</span>
+        <input data-extend="button-interface">
+    </div>
+
+    <script src="../lib/ubee-glass-v2.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>
