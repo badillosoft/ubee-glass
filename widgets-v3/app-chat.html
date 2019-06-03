@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat App</title>
+</head>
+<body>
+    <div data-glass="chat">
+        <div data-module="chat-module">
+            <datalist data-source="/widgets-v3/chat.html">
+                <option data-install-component="chat-message-box"></option>
+            </datalist>
+        </div>
+        <h1>Root</h1>
+        <div data-use="chat-message-box"></div>
+    </div>
+    <script src="../lib/ubee-glass-v3.js"></script>
+    <script>ubee_glass("chat")</script>
+</body>
+</html>

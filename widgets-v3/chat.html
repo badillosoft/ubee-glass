@@ -1,0 +1,87 @@
+<div data-component="chat-message-box">
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css");
+        [data-component="chat-message-box"] > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: stretch;
+            background-color: whitesmoke;
+            padding: 20px;
+        }
+        [data-component="chat-message-box"] > div > input {
+            flex-grow: 5;
+            font-size: 24px;
+            padding: 2px 12px;
+            margin: 0px 12px;
+            border-radius: 6px;
+            outline: none;
+            appearance: none;
+            border: 2px solid lightblue;
+        }
+        [data-component="chat-message-box"] > div > button {
+            flex-grow: 1;
+            appearance: none;
+            outline: none;
+            border: 2px solid lightblue;
+            background-color: transparent;
+            color: lightblue;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        [data-component="chat-message-box"] > div > button:hover {
+            cursor: pointer;
+            background-color: lightblue;
+            color: whitesmoke;
+        }
+        [data-component="chat-message-box"] > div > button:active {
+            cursor: pointer;
+            color: #dfdfdf;
+        }
+    </style>
+    <h1>Wall</h1>
+    <div>
+        <h1>Parent</h1>
+        <input type="text" placeholder="Escribe algo..."
+            data-event-on-value="self.value = event.detail"
+            data-emit-and-emit-keyup-to-on-value="self.value.toUpperCase()"
+        >
+        <input type="text" placeholder="Escucho self"
+            data-event-on-value="self.value = event.detail"
+            data-emit-and-emit-focus-to-on-value="`Hi self to self`"
+        >
+        <input type="text" placeholder="Escucho parent"
+            data-event-on-value="self.value = event.detail"
+            data-join-and-emit-at-send-to-on-value="event.detail"
+        >
+        <input type="text" placeholder="Ecucho wall"
+            data-event-on-value="self.value = event.detail"
+            data-look-and-emit-at-send-to-on-value="event.detail"
+        >
+        <input type="text" placeholder="Escucho root"
+            data-event-on-value="self.value = event.detail"
+            data-listen-and-emit-at-send-to-on-value="event.detail"
+        >
+        <button
+            data-event-at-send="alert(event.detail)"
+            data-event-and-emit-click-to-at-send="`hi self to self`"
+        >
+            self <i class="fas fa-paper-plane fa-2x"></i>
+        </button>
+        <button
+            data-event-and-notify-click-to-at-send="`hi self to parent`"
+        >
+            parent <i class="fas fa-paper-plane fa-2x"></i>
+        </button>
+        <button
+            data-event-and-watch-click-to-at-send="`hi self to wall`"
+        >
+            wall <i class="fas fa-paper-plane fa-2x"></i>
+        </button>
+        <button
+            data-event-and-fire-click-to-at-send="`hi self to root`"
+        >
+            root <i class="fas fa-paper-plane fa-2x"></i>
+        </button>
+    </div>
+</div>
