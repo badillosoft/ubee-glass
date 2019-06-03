@@ -47,19 +47,19 @@
             data-emit-and-emit-keyup-to-on-value="self.value.toUpperCase()"
         >
         <input type="text" placeholder="Escucho self"
-            data-event-on-value="self.value = event.detail"
+            data-subscribe-on-value="self.value = event.detail"
             data-emit-and-emit-focus-to-on-value="`Hi self to self`"
         >
         <input type="text" placeholder="Escucho parent"
-            data-event-on-value="self.value = event.detail"
+            data-subscribe-on-value="self.value = event.detail"
             data-join-and-emit-at-send-to-on-value="event.detail"
         >
         <input type="text" placeholder="Ecucho wall"
-            data-event-on-value="self.value = event.detail"
+            data-subscribe-on-value="self.value = event.detail"
             data-look-and-emit-at-send-to-on-value="event.detail"
         >
         <input type="text" placeholder="Escucho root"
-            data-event-on-value="self.value = event.detail"
+            data-subscribe-on-value="self.value = event.detail"
             data-listen-and-emit-at-send-to-on-value="event.detail"
         >
         <button
