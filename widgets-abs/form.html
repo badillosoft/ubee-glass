@@ -1,0 +1,29 @@
+<div data-component="form-login"
+    data-emit-and-emit-login-to-lock="null"
+>
+    <datalist data-interface="input-clear">
+        <option data-look-and-emit-login-and-clear="null"></option>
+        <option data-subscribe-clear="self.value = ''"></option>
+    </datalist>
+    
+    <datalist data-interface="input-lock">
+        <option data-look-and-emit-lock-and-lock="null"></option>
+        <option data-look-and-emit-unlock-and-unlock="null"></option>
+        <option data-subscribe-lock="self.disabled = true"></option>
+        <option data-subscribe-unlock="self.disabled = false"></option>
+    </datalist>
+
+    <input type="text" placeholder="User"
+        data-subscribe-keyup="wall.dataset.user = self.value"
+        data-extend="input-clear | input-lock"
+    >
+    <input type="password" placeholder="Password"
+        data-subscribe-keyup="wall.dataset.password = self.value"
+        data-extend="input-clear | input-lock"
+    >
+    <button
+        data-event-and-watch-click-to-login="
+            {user: wall.dataset.user, password: wall.dataset.password}
+        "
+    >login</button>
+</div>
