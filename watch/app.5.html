@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+<body>
+
+    <!-- LOGIC -->    
+    <template data-interface="demo-controller">
+        <script>
+            const img = self.querySelector("img");
+
+            setTimeout(() => {
+                img.src = "http://placekitten.com/400";
+            }, 3000);
+        </script>
+    </template>
+
+    <!-- UX -->
+    <div data-glass="app">
+        <div data-extend="demo-controller">
+            <img src="http://placekitten.com/200" alt="">
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>
