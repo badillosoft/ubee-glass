@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+<body>
+
+    <!-- LOGIC -->    
+
+    <!-- UX -->
+    <div data-glass="app">
+        <button data-self-click-to-parent-on-update="`Hello from button`">Hola mundo</button>
+        <span data-extend="other" data-parent-on-update="self.textContent = event.detail;">Hola mundo</button>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>

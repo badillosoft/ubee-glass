@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass - Watch App</title>
+</head>
+<body>
+    <datalist data-ubee-watch="http://localhost:3000">
+        <option data-ubee-watch-node="my-app"></option>
+        <option data-ubee-watch-node="my-app-2"></option>
+        <option data-ubee-watch-node="my-app-3"></option>
+    </datalist>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script>
+        const socket = io("http://localhost:3000");
+
+        let token = null;
+
+        socket.on("connect", () => {
+            console.log("ubee-watch: connected", socket.id);
+            socket.emit("look:login", "abc123", "my-app", result => {
+                console.log(result);
+                token = result.token;
+                socket.emit("ambient:state", token, "ping", null);
+                socket.emit("ambient:state", token, "query", "select * from users");
+            });
+        });
+
+        socket.on("ambient:state", (name, state) => {
+            console.log("ubee-watch: state", name, state);
+        });
+    </script>
+    <button
+        data-ubee-on-state-ping="..."
+        data-ubee-on-state-pong="..."
+    ></button>
+</body>
+</html>
