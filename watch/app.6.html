@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+<body>
+
+    <!-- LOGIC -->    
+    <template data-interface="ubee-watch">
+        <script>
+            // todo: load script socket.io dynamically
+            const socket = io();
+            // ...
+            self.querySelectorAll("option").forEach(option => {
+                const channel = option.dataset.channel;
+                socket.emit("look:login", ...);
+            });
+
+            window.look = (channel, data) => {
+                socket.emit("look:state", ...);
+            }
+        </script>
+    </template>
+
+    <!-- UX -->
+    <div data-glass="app">
+        <datalist data-extend="ubee-watch">
+            <option data-channel="my-app"></option>
+            <option data-channel="database"></option>
+            <option data-channel="query"></option>
+        </datalist>
+        <div>
+            <button data-self-click="look('database', `hello`)">enviar</button>
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>
