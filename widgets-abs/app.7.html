@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+
+<body>
+
+    <!-- LOGIC -->
+    <template data-interface="ubee-watch">
+        <script>
+            const script_io = document.createElement("script");
+
+            script_io.src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js";
+
+            script_io.addEventListener("load", () => {
+                const socket = io(self.dataset.uri || "http://localhost");
+    
+                let ambients = {};
+    
+                socket.on('connect', () => {
+                    // console.log('ubee-watch : connected', socket.id);
+                    ambients = {};
+    
+                    self.querySelectorAll("option").forEach(option => {
+                        const ambient = option.dataset.ambient;
+                        const key = option.dataset.key;
+                        socket.emit('look:login', key, ambient, result => {
+                            // console.log(result);
+                            ambients[ambient] = result.token;
+                        });
+                    });
+    
+                });
+    
+                socket.on('ambient:state', (ambient, code, protocol) => {
+                    console.log('ubee-watch: state', ambient, code, protocol);
+                    root.dispatchEvent(new CustomEvent("@watch:state", {
+                        detail: { ambient, code, protocol }
+                    }));
+                    root.dispatchEvent(new CustomEvent(`@watch:state#${ambient}`, {
+                        detail: { code, protocol }
+                    }));
+                    root.dispatchEvent(new CustomEvent(`@watch:state#${ambient}:${code}`, {
+                        detail: protocol
+                    }));
+                });
+                
+                window.look = (ambient, code, protocol) => {
+                    // console.log(ambient);
+                    const token = ambients[ambient];
+                    if (!token) {
+                        console.warn(`ubee-watch: invalid ambient:token`, ambient, code, protocol);
+                    }
+                    socket.emit('ambient:state', token, code, protocol, result => {
+                        console.log('ubee-watch: state/emit', code, result);
+                    });
+                };
+            });
+
+            document.head.appendChild(script_io);
+        </script>
+    </template>
+
+    <!-- UX -->
+    <div data-glass="app">
+        <div
+            data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
+            data-root-at-watch-on-state-in-my-app="console.log('@watch:state#my-app', event.detail)"
+            data-root-at-watch-on-state-in-my-app-on-srg-on-login="console.log('@watch:state#my-app:srg:login', event.detail)"
+            data-debug="true"
+        ></div>
+        <datalist data-extend="ubee-watch" data-uri="http://localhost:3000">
+            <option data-ambient="my-app" data-key="abc123"></option>
+            <option data-ambient="my-app2" data-key="abc123"></option>
+        </datalist>
+        <div>
+            <button data-self-click="look('my-app','srg:login', `hello`)"
+                data-root-at-watch-on-state-in-my-app-on-srg-on-login-on-response="self.textContent = event.detail"
+            >enviar</button>
+            <button data-self-click="look('my-app2','srg:login', `hello`)">enviar</button>
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+
+</html>

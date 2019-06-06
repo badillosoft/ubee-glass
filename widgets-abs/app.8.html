@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App</title>
+</head>
+
+<body>
+
+    <!-- LOGIC -->
+
+    <!-- UX -->
+    <div data-glass="app">
+        <div
+            data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
+            data-root-at-watch-on-state-in-my-app="console.log('@watch:state#my-app', event.detail)"
+            data-root-at-watch-on-state-in-my-app-on-srg-on-login="console.log('@watch:state#my-app:srg:login', event.detail)"
+            data-debug="false"
+        ></div>
+        <datalist data-extend="ubee-watch" data-uri="http://localhost:3000" data-debug="false">
+            <option data-ambient="my-app" data-key="abc123"></option>
+            <option data-ambient="my-app2" data-key="abc123"></option>
+        </datalist>
+        <div>
+            <button data-self-click="window.look('my-app','srg:login', `hello`)"
+                data-root-at-watch-on-state-in-my-app-on-srg-on-login-on-response="self.textContent = event.detail"
+            >enviar</button>
+            <button data-self-click="look('my-app2','srg:login', `hello`)">enviar</button>
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+
+</html>
