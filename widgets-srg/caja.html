@@ -11,11 +11,11 @@
 <body>
     <div data-glass="app">
 
-        <!-- <div data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
+        <div data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
             data-root-at-watch-on-state-in-mbpos="console.log('@watch:state#mbpos', event.detail)"
             data-root-at-watch-on-state-in-mbpos-on-query-on-response="console.log('@watch:state#mbpos:query:response', event.detail)"
             data-debug="false">
-        </div> -->
+        </div>
 
         <div data-debug="false">
             <datalist data-extend="ubee-watch" data-uri="http://189.213.198.6:3000" data-debug="false">
@@ -24,9 +24,7 @@
         </div>
 
         <div data-component="caja">
-            <input type="text" 
-                data-self-click="look('mbpos','query', {user :'yo', password:'yo' })"
-                data-wall-at-list-id="self.setAttribute('list', event.detail)" data-wall-on-list="
+            <input type="text" data-wall-at-list-id="self.setAttribute('list', event.detail)" data-wall-on-list="
                     self.dataset.state = 'idle';
                 " data-self-keyup-to-wall-on-search="
                     if (event.key !== 'Enter') {                        
@@ -42,6 +40,11 @@
                     self.id = Math.random().toString(32).slice(2);
                     return self.id;
                 " data-wall-on-search-to-wall-on-list="
+
+                console.log('root html', root);
+                console.log('wall html', wall);
+                console.log('parent html', parent);
+                console.log('self html', wall);
                 
                     const $event = event;
                     return new Promise(resolve => {
@@ -95,10 +98,14 @@
                 " data-wall-on-list="
                     self.hidden = true;
                 ">obteniendo lista...</span>
+
+            <!-- <button
+                data-self-click="window.look('mbpos','query', {user :'sup', password:'De aqui para el real' })"
+                data-root-at-watch-on-state-in-mbpos-on-query-on-response="console.log('EVENT-SIL:',event.detail)">Login</button> -->
         </div>
     </div>
 
-    <script src="../lib/ubee-glass-v4.js"></script>
+    <script src="ubee-glass-v4-last.js"></script>
     <script>ubee_glass("app")</script>
 </body>
 
