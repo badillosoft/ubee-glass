@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>App Caja de búsqueda</title>
+</head>
+
+<body>
+    <div data-glass="app">
+
+        <!-- <div data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
+            data-root-at-watch-on-state-in-mbpos="console.log('@watch:state#mbpos', event.detail)"
+            data-root-at-watch-on-state-in-mbpos-on-query-on-response="console.log('@watch:state#mbpos:query:response', event.detail)"
+            data-debug="false">
+        </div> -->
+
+        <div data-debug="false">
+            <datalist data-extend="ubee-watch" data-uri="http://189.213.198.6:3000" data-debug="false">
+                <option data-ambient="mbpos" data-key="abc123"></option>
+            </datalist>
+        </div>
+
+        <div data-component="caja">
+            <input type="text" 
+                data-self-click="look('mbpos','query', {user :'yo', password:'yo' })"
+                data-wall-at-list-id="self.setAttribute('list', event.detail)" data-wall-on-list="
+                    self.dataset.state = 'idle';
+                " data-self-keyup-to-wall-on-search="
+                    if (event.key !== 'Enter') {                        
+                        return cancel();
+                    }
+                    if (self.dataset.state === 'search') {
+                        return cancel();
+                    }
+                    self.dataset.state = 'search';
+                    return self.value;
+                ">
+            <datalist data-self-on-update-to-wall-at-list-id="
+                    self.id = Math.random().toString(32).slice(2);
+                    return self.id;
+                " data-wall-on-search-to-wall-on-list="
+                
+                    const $event = event;
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            const query = $event.detail;
+                            const list = [
+                                { id: 'c001', nombre: 'Ana A' },
+                                { id: 'c002', nombre: 'Ana B' },
+                                { id: 'c003', nombre: 'Ana C' },
+                                { id: 'c004', nombre: 'Beto A' },
+                                { id: 'c005', nombre: 'Beto B' },
+                                { id: 'c006', nombre: 'Beto C' },
+                                { id: 'c007', nombre: 'Carla A' },
+                                { id: 'c008', nombre: 'Carla B' },
+                                { id: 'c009', nombre: 'Carla C' },
+                                { id: 'c010', nombre: 'Diego A' },
+                                { id: 'c011', nombre: 'Diego B' },
+                                { id: 'c012', nombre: 'Diego C' },
+                                { id: 'c013', nombre: 'Eduardo A' },
+                                { id: 'c014', nombre: 'Eduardo B' },
+                                { id: 'c015', nombre: 'Eduardo C' },
+                                { id: 'c016', nombre: 'Fabiola A' },
+                                { id: 'c017', nombre: 'Fabiola B' },
+                                { id: 'c018', nombre: 'Fabiola C' },
+                                { id: 'c019', nombre: 'Gerardo A' },
+                                { id: 'c020', nombre: 'Gerardo B' },
+                                { id: 'c021', nombre: 'Gerardo C' },
+                            ].filter(cliente => {
+                                return cliente.nombre.toLowerCase().indexOf(query.trim()) >= 0;
+                            });
+    
+                            while (self.firstChild) {
+                                self.removeChild(self.firstChild);
+                            }
+    
+                            list.forEach(cliente => {
+                                const option = document.createElement('option');
+                                option.value = cliente.id;
+                                option.textContent = cliente.nombre;
+                                self.appendChild(option);
+                            });
+                            resolve();
+                        }, 1000);
+                    });
+                ">
+                <option value="c001">Ana B</option>
+            </datalist>
+            <span hidden data-wall-on-search="
+                    self.hidden = false;
+                    self.textContent = `obteniendo lista... (${event.detail})`;
+                " data-wall-on-list="
+                    self.hidden = true;
+                ">obteniendo lista...</span>
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+
+</html>

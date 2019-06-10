@@ -132,15 +132,18 @@
         .data-file {
             max-height: 0px;
             opacity: 0;
+            visibility: hidden;
             /* transition: opacity 300ms, max-height 300ms ease 150ms; */
         }
         [data-source-type='file'] .data-file {
             max-height: 10rem;
             opacity: 1;
+            visibility: visible;
             transition: opacity 300ms  ease 150ms, max-height 300ms;
         }
 
         .data-url {
+            visibility: hidden;
             max-height: 0px;
             opacity: 0;
             /* transition: opacity 300ms, max-height 300ms ease 150ms; */
@@ -148,6 +151,7 @@
         [data-source-type='url'] .data-url {
             max-height: 10rem;
             opacity: 1;
+            visibility: visible;
             transition: opacity 300ms  ease 150ms, max-height 300ms;
         }
 
@@ -167,8 +171,12 @@
             border-radius: 3px;
             padding: 6px;
         }
+        .tag.active {
+            color: whitesmoke;
+        }
 
         .tag-orange {
+            color: orange;
             border: 2px solid orange;
             background-color: rgba(255, 166, 0, 0.1);
         }
@@ -179,6 +187,7 @@
             background-color: rgba(255, 166, 0, 0.7);
         }
         .tag-lime {
+            color: lime;
             border: 2px solid lime;
             background-color: rgba(0, 255, 0, 0.1);
         }
@@ -189,6 +198,7 @@
             background-color: rgba(0, 255, 0, 0.7);
         }
         .tag-green {
+            color: green;
             border: 2px solid green;
             background-color: rgba(0, 128, 0, 0.1);
         }
@@ -199,6 +209,7 @@
             background-color: rgba(0, 128, 0, 0.7);
         }
         .tag-gray {
+            color: gray;
             border: 2px solid gray;
             background-color: rgba(128, 128, 128, 0.1);
         }
@@ -209,6 +220,7 @@
             background-color: rgba(128, 128, 128, 0.7);
         }
         .tag-red {
+            color: red;
             border: 2px solid red;
             background-color: rgba(255, 0, 0, 0.1);
         }
@@ -219,6 +231,7 @@
             background-color: rgba(255, 0, 0, 0.7);
         }
         .tag-blue {
+            color: blue;
             border: 2px solid blue;
             background-color: rgba(0, 0, 255, 0.1);
         }
