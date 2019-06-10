@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stat v1.0</title>
+</head>
+<body>
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css");
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .data-source {
+            user-select: none;
+            border-radius: 6px;
+            padding: 24px;
+            border: 2px solid #dfdfdf;
+            background-color: whitesmoke;
+        }
+
+        .data-source > .header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 12px;
+            border-bottom: 2px dotted lightgray;
+        }
+        [data-source-state='on'] .data-source > .header {
+            border-bottom: 2px dotted rgba(255, 166, 0, 0.4);
+        }
+        [data-source-state='on'] .data-source > .header:hover {
+            border-bottom: 2px dotted rgba(255, 166, 0, 0.8);
+        }
+        [data-source-state='off'] .data-source > .header {
+            border-bottom: 2px dotted rgba(100, 148, 237, 0.4);
+        }
+        [data-source-state='off'] .data-source > .header:hover {
+            border-bottom: 2px dotted rgba(100, 148, 237, 0.8);
+        }
+
+        .data-source > .header > div.data-number {
+            width: 48px;
+            line-height: 48px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 24px;
+            margin-right: 24px;
+            color: cornflowerblue;
+            border: 2px solid cornflowerblue;
+            background-color: rgba(100, 148, 237, 0.1);
+        }
+        [data-source-state='on'] .data-source > .header > div.data-number {
+            color: orange;
+            border: 2px solid orange;
+            background-color: rgba(255, 166, 0, 0.1);
+        }
+        [data-source-state='on'] .data-source > .header > div.data-number:hover {
+            background-color: rgba(255, 166, 0, 0.3);
+        }
+        [data-source-state='off'] .data-source > .header > div.data-number:hover {
+            background-color: rgba(100, 148, 237, 0.3);
+        }
+
+        [data-source-state='off'] .data-source > .data-type {
+            max-height: 0px;
+            opacity: 0;
+            transition: opacity 300ms, max-height 300ms ease 150ms;
+        }
+        [data-source-state='on'] .data-source > .data-type {
+            max-height: 10rem;
+            opacity: 1;
+            transition: opacity 300ms  ease 150ms, max-height 300ms;
+        }
+
+        .data-type > .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .data-type > .header > div {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .data-type > .header > div > span {
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 3px;
+            color: crimson;
+            border: 2px solid crimson;
+            background-color: rgba(220, 20, 60, 0.1);
+        }
+
+        .data-type > .header > div > span:nth-of-type(1) {
+            color: yellowgreen;
+            border: 2px solid yellowgreen;
+            background-color: rgba(153, 205, 50, 0.1);
+        }
+        .data-type > .header > div > span:nth-of-type(1):hover {
+            background-color: rgba(153, 205, 50, 0.3);
+        }
+        [data-source-type='file'] .data-type > .header > div > span:nth-of-type(1) {
+            background-color: rgba(153, 205, 50, 0.7);
+            color: whitesmoke;
+        }
+        
+        .data-type > .header > div > span:nth-of-type(2) {
+            color: lightblue;
+            border: 2px solid lightblue;
+            background-color: rgba(173, 216, 230, 0.1);
+        }
+        .data-type > .header > div > span:nth-of-type(2):hover {
+            background-color: rgba(173, 216, 230, 0.3);
+        }
+        [data-source-type='url'] .data-type > .header > div > span:nth-of-type(2) {
+            background-color: rgba(173, 216, 230, 0.7);
+            color: whitesmoke;
+        }
+
+        .data-type > .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .data-file {
+            max-height: 0px;
+            opacity: 0;
+            /* transition: opacity 300ms, max-height 300ms ease 150ms; */
+        }
+        [data-source-type='file'] .data-file {
+            max-height: 10rem;
+            opacity: 1;
+            transition: opacity 300ms  ease 150ms, max-height 300ms;
+        }
+
+        .data-url {
+            max-height: 0px;
+            opacity: 0;
+            /* transition: opacity 300ms, max-height 300ms ease 150ms; */
+        }
+        [data-source-type='url'] .data-url {
+            max-height: 10rem;
+            opacity: 1;
+            transition: opacity 300ms  ease 150ms, max-height 300ms;
+        }
+        
+    </style>
+
+    <div data-glass="app">
+        <div data-component="data-source"
+            data-source-state="on"
+            data-source-type-state="on"
+        >
+            <div class="data-source">
+                <div class="header"
+                    data-debug="true"
+                    data-toggle-key="data-source-state"
+                    data-toggle-on-value="on"
+                    data-toggle-off-value="off"
+                    data-self-click="
+                        const toggleKey = self.dataset.toggleKey || 'data-toggle-state';
+                        const toggleOnValue = self.dataset.toggleOnValue || 'on';
+                        const toggleOffValue = self.dataset.toggleOffValue || 'off';
+                        const state = wall.getAttribute(toggleKey) || toggleOffValue;
+                        wall.setAttribute(toggleKey, state === toggleOffValue ? toggleOnValue : toggleOffValue);
+                    "
+                >
+                    <div class="data-number">1</div>
+                    <h1><i class="fas fa-database"></i> Fuente de datos</h1>
+                </div>
+                <div class="container data-type">
+                    <div class="header">
+                        <h2>Tipo de fuente</h2>
+                        <div>
+                            <span
+                                data-select-key="data-source-type"
+                                data-select-value="file"
+                                data-self-click="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    const selectValue = self.dataset.selectValue || 'selected';
+                                    wall.setAttribute(selectKey, selectValue);
+                                "
+                            >Archivo</span>
+                            <span
+                                data-select-key="data-source-type"
+                                data-select-value="url"
+                                data-self-click="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    const selectValue = self.dataset.selectValue || 'selected';
+                                    wall.setAttribute(selectKey, selectValue);
+                                "
+                            >URL</span>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="data-file">
+                            <h3>Tipo de Archivo</h3>
+                            <div>
+                                <span>CSV</span>
+                                <span>EXCEL</span>
+                                <span>TXT</span>
+                            </div>
+                            <div>
+                                <input type="file">
+                            </div>
+                        </div>
+                        <div class="data-url">
+                            <h3>Tipo de URL</h3>
+                            <div>
+                                <span>Simple (GET)</span>
+                                <span>Avanzada (FETCH)</span>
+                            </div>
+                            <div>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+</body>
+</html>
