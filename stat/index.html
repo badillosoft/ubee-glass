@@ -150,6 +150,84 @@
             opacity: 1;
             transition: opacity 300ms  ease 150ms, max-height 300ms;
         }
+
+        .tag-selector {
+            display: flex;
+            align-items: center;
+        }
+
+        .tag-selector > .options {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .tag {
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 6px;
+        }
+
+        .tag-orange {
+            border: 2px solid orange;
+            background-color: rgba(255, 166, 0, 0.1);
+        }
+        .tag-orange:hover {
+            background-color: rgba(255, 166, 0, 0.3);
+        }
+        .tag-orange.active {
+            background-color: rgba(255, 166, 0, 0.7);
+        }
+        .tag-lime {
+            border: 2px solid lime;
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+        .tag-lime:hover {
+            background-color: rgba(0, 255, 0, 0.3);
+        }
+        .tag-lime.active {
+            background-color: rgba(0, 255, 0, 0.7);
+        }
+        .tag-green {
+            border: 2px solid green;
+            background-color: rgba(0, 128, 0, 0.1);
+        }
+        .tag-green:hover {
+            background-color: rgba(0, 128, 0, 0.3);
+        }
+        .tag-green.active {
+            background-color: rgba(0, 128, 0, 0.7);
+        }
+        .tag-gray {
+            border: 2px solid gray;
+            background-color: rgba(128, 128, 128, 0.1);
+        }
+        .tag-gray:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+        }
+        .tag-gray.active {
+            background-color: rgba(128, 128, 128, 0.7);
+        }
+        .tag-red {
+            border: 2px solid red;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        .tag-red:hover {
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+        .tag-red.active {
+            background-color: rgba(255, 0, 0, 0.7);
+        }
+        .tag-blue {
+            border: 2px solid blue;
+            background-color: rgba(0, 0, 255, 0.1);
+        }
+        .tag-blue:hover {
+            background-color: rgba(0, 0, 255, 0.3);
+        }
+        .tag-blue.active {
+            background-color: rgba(0, 0, 255, 0.7);
+        }
         
     </style>
 
@@ -201,21 +279,125 @@
                     </div>
                     <div class="container">
                         <div class="data-file">
-                            <h3>Tipo de Archivo</h3>
-                            <div>
-                                <span>CSV</span>
-                                <span>EXCEL</span>
-                                <span>TXT</span>
+                            <div class="tag-selector">
+                                <h3 class="title">Tipo de Archivo</h3>
+                                <div class="options">
+                                    <span class="tag tag-orange"
+                                        data-select-key="data-source-type-file"
+                                        data-select-value="csv"
+                                        data-self-click="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            wall.setAttribute(selectKey, selectValue);
+                                        "
+                                        data-self-click-to-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            return wall.getAttribute(selectKey);
+                                        "
+                                        data-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            const currentValue = event.detail;
+                                            selectValue === currentValue ? 
+                                                self.classList.add('active') :
+                                                self.classList.remove('active');
+                                        "
+                                    >CSV</span>
+                                    <span class="tag tag-green"
+                                        data-select-key="data-source-type-file"
+                                        data-select-value="excel"
+                                        data-self-click="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            wall.setAttribute(selectKey, selectValue);
+                                        "
+                                        data-self-click-to-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            return wall.getAttribute(selectKey);
+                                        "
+                                        data-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            const currentValue = event.detail;
+                                            selectValue === currentValue ? 
+                                                self.classList.add('active') :
+                                                self.classList.remove('active');
+                                        "
+                                    >EXCEL</span>
+                                    <span class="tag tag-gray"
+                                        data-select-key="data-source-type-file"
+                                        data-select-value="txt"
+                                        data-self-click="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            wall.setAttribute(selectKey, selectValue);
+                                        "
+                                        data-self-click-to-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            return wall.getAttribute(selectKey);
+                                        "
+                                        data-wall-on-type-of-file="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            const currentValue = event.detail;
+                                            selectValue === currentValue ? 
+                                                self.classList.add('active') :
+                                                self.classList.remove('active');
+                                        "
+                                    >TXT</span>
+                                </div>
                             </div>
                             <div>
                                 <input type="file">
                             </div>
                         </div>
                         <div class="data-url">
-                            <h3>Tipo de URL</h3>
-                            <div>
-                                <span>Simple (GET)</span>
-                                <span>Avanzada (FETCH)</span>
+                            <div class="tag-selector">
+                                <h3 class="title">Tipo de URL</h3>
+                                <div class="options">
+                                    <span class="tag tag-blue"
+                                        data-select-key="data-source-type-url"
+                                        data-select-value="get"
+                                        data-self-click="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            wall.setAttribute(selectKey, selectValue);
+                                        "
+                                        data-self-click-to-wall-on-type-of-url="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            return wall.getAttribute(selectKey);
+                                        "
+                                        data-wall-on-type-of-url="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            const currentValue = event.detail;
+                                            selectValue === currentValue ? 
+                                                self.classList.add('active') :
+                                                self.classList.remove('active');
+                                        "
+                                    >Simple</span>
+                                    <span class="tag tag-red"
+                                        data-select-key="data-source-type-url"
+                                        data-select-value="fetch"
+                                        data-self-click="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            wall.setAttribute(selectKey, selectValue);
+                                        "
+                                        data-self-click-to-wall-on-type-of-url="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            return wall.getAttribute(selectKey);
+                                        "
+                                        data-wall-on-type-of-url="
+                                            const selectKey = self.dataset.selectKey || 'data-select-state';
+                                            const selectValue = self.dataset.selectValue || 'selected';
+                                            const currentValue = event.detail;
+                                            selectValue === currentValue ? 
+                                                self.classList.add('active') :
+                                                self.classList.remove('active');
+                                        "
+                                    >Avanzada</span>
+                                </div>
                             </div>
                             <div>
                                 <input type="text">
