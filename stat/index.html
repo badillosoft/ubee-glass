@@ -86,10 +86,11 @@
             flex-grow: 1;
             display: flex;
             align-items: center;
-            justify-content: space-evenly;
+            justify-content: flex-start;
+            padding-left: 24px;
         }
 
-        .data-type > .header > div > span {
+        /* .data-type > .header > div > span {
             cursor: pointer;
             padding: 6px;
             border-radius: 3px;
@@ -122,7 +123,7 @@
         [data-source-type='url'] .data-type > .header > div > span:nth-of-type(2) {
             background-color: rgba(173, 216, 230, 0.7);
             color: whitesmoke;
-        }
+        } */
 
         .data-type > .container {
             display: flex;
@@ -163,13 +164,15 @@
         .tag-selector > .options {
             flex-grow: 1;
             display: flex;
-            justify-content: space-evenly;
+            justify-content: flex-start;
+            padding-left: 24px;
         }
 
         .tag {
             cursor: pointer;
             border-radius: 3px;
             padding: 6px;
+            margin: 6px 6px;
         }
         .tag.active {
             color: whitesmoke;
@@ -270,7 +273,7 @@
                     <div class="header">
                         <h2>Tipo de fuente</h2>
                         <div>
-                            <span
+                            <span class="tag tag-gray"
                                 data-select-key="data-source-type"
                                 data-select-value="file"
                                 data-self-click="
@@ -278,14 +281,38 @@
                                     const selectValue = self.dataset.selectValue || 'selected';
                                     wall.setAttribute(selectKey, selectValue);
                                 "
+                                data-self-click-to-wall-on-type="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    return wall.getAttribute(selectKey);
+                                "
+                                data-wall-on-type="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    const selectValue = self.dataset.selectValue || 'selected';
+                                    const currentValue = event.detail;
+                                    selectValue === currentValue ? 
+                                        self.classList.add('active') :
+                                        self.classList.remove('active');
+                                "
                             >Archivo</span>
-                            <span
+                            <span class="tag tag-gray"
                                 data-select-key="data-source-type"
                                 data-select-value="url"
                                 data-self-click="
                                     const selectKey = self.dataset.selectKey || 'data-select-state';
                                     const selectValue = self.dataset.selectValue || 'selected';
                                     wall.setAttribute(selectKey, selectValue);
+                                "
+                                data-self-click-to-wall-on-type="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    return wall.getAttribute(selectKey);
+                                "
+                                data-wall-on-type="
+                                    const selectKey = self.dataset.selectKey || 'data-select-state';
+                                    const selectValue = self.dataset.selectValue || 'selected';
+                                    const currentValue = event.detail;
+                                    selectValue === currentValue ? 
+                                        self.classList.add('active') :
+                                        self.classList.remove('active');
                                 "
                             >URL</span>
                         </div>
