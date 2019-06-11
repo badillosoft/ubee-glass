@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stat App v1.0</title>
+</head>
+<body>
+
+    <style>
+        button.active {
+            font-size: 24px;
+        }
+    </style>
+
+    <template data-template="button">
+        <button data-self-click="console.log('button', self, parent, wall, root)">hello</button>
+    </template>
+    
+    <div data-glass="app">
+
+        <div data-use-template="button">
+            <datalist data-selector="button">
+                <option data-key="textContent" data-value="hi there"></option>
+                <option data-key="style.color" data-value="red"></option>
+                <option data-key="style.apparence" data-value="none"></option>
+                <option data-key="classList.add" data-value="@active"></option>
+            </datalist>
+        </div>
+        <div data-use-template="button"></div>
+        <div data-use-template="button"></div>
+
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+
+</body>
+</html>
