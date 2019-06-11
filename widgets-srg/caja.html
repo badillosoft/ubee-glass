@@ -13,11 +13,23 @@
 
         <div data-root-at-watch-on-state="console.log('@watch:state', event.detail)"
             data-root-at-watch-on-state-in-mbpos="console.log('@watch:state#mbpos', event.detail)"
-            data-root-at-watch-on-state-in-mbpos-on-query-on-response="console.log('@watch:state#mbpos:query:response', event.detail)"
-            data-debug="false">
+            data-root-at-watch-on-state-in-mbpos-on-products-on-response="console.log('products:response:  ',event.detail)"          
+            data-debug="true">
+        </div>
+        <!-- <div data-root-at-watch-on-state-in-mbpos=" let list =[]
+              event.detail.code.protocol.forEach(client=>{ 
+                  let listItem={}; 
+                  listItem.id = client.CLIENTE; 
+                  listItem.nombre = client.NOMBRE; 
+                  list.push(listItem);
+                });
+              root.dataset.list = JSON.stringify(list);
+              " </div> <div data-debug="false"> -->
+
+        <div data-wall-at-watch-on-state-in-mbpos-on-products-on-response=" console.log('Event:',event.detail.code.protocol)">
         </div>
 
-        <div data-debug="false">
+        <div>
             <datalist data-extend="ubee-watch" data-uri="http://189.213.198.6:3000" data-debug="false">
                 <option data-ambient="mbpos" data-key="abc123"></option>
             </datalist>
@@ -99,14 +111,16 @@
                     self.hidden = true;
                 ">obteniendo lista...</span>
 
-            <button
-                data-self-click="window.look('mbpos','query', {user :'sup', password:'De aqui para el real' })"
-                data-root-at-watch-on-state-in-mbpos-on-query-on-response="console.log('EVENT-SIL:',event.detail)">Login</button>
+            <button data-self-click="window.look('mbpos','products',{NOMBRE:'ROSALBA'})"            
+            >Login</button>
         </div>
     </div>
 
     <script src="../lib/ubee-glass-v4.js"></script>
     <script>ubee_glass("app")</script>
+    <script>
+
+    </script>
 </body>
 
 </html>
