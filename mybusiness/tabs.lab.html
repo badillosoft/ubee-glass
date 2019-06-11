@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lab</title>
+</head>
+<body>
+
+    <style>
+        [data-tab] {
+            display: none;
+            visibility: hidden;
+        }
+        [data-tab].active {
+            display: block;
+            visibility: visible;
+        }
+    </style>
+    
+    <div data-glass="app">
+        <ul>
+            <li><a href="#1">Uno</a></li>
+            <li><a href="#2">Dos</a></li>
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#about">Acerca de</a></li>
+        </ul>
+        <div data-component="tab-controller"
+            data-self-on-update="
+                window.addEventListener('hashchange', () => {
+                    self.dispatchEvent(new CustomEvent(':tab', {
+                        detail: window.location.hash.slice(1)
+                    }));
+                });
+                self.dispatchEvent(new CustomEvent(':tab', {
+                    detail: window.location.hash.slice(1) || 'home'
+                }));
+            "
+            data-self-on-tab="
+                const hash = event.detail;
+                self.querySelectorAll(`[data-tab]`).forEach(child => {
+                    child.classList.remove('active');
+                    if (child.dataset.tab === hash) {
+                        child.classList.add('active');
+                    }
+                });
+            "
+        >
+
+            <div data-tab="1">
+                <h1>Tab 1</h1>
+            </div>
+            <div data-tab="2">
+                <h2>Tab 2</h2>
+            </div>
+            <div data-tab="home">
+                <span data-self-click="window.location.hash = `#1`">home</span>
+                <a href="#about">Acerca de</a>
+            </div>
+            <div data-tab="about">
+                <input type="text" value="about">
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+
+</body>
+</html>
