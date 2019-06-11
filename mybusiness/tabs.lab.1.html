@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lab</title>
+</head>
+<body>
+
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css");
+
+        html, body {
+            height: 100%;
+        }
+
+        * {
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+
+        [data-tab] {
+            display: none;
+            visibility: hidden;
+        }
+        [data-tab].active {
+            display: block;
+            visibility: visible;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0px;
+        }
+
+        a {
+            color: cornflowerblue;
+        }
+        a:active {
+            color: hotpink;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-evenly;
+            border-bottom: 2px solid cornflowerblue;
+            padding: 24px;
+            background-color: whitesmoke;
+        }
+
+        [data-tab] {
+            padding: 48px;
+        }
+
+        @media screen and (max-width: 600px) {
+            [data-glass="app"] {
+                display: flex;
+                align-items: stretch;
+                height: 100%;
+            }
+            .nav {
+                display: flex;
+                flex-direction: column;
+                border-bottom: 0px solid transparent;
+                border-right: 2px solid cornflowerblue;
+                padding: 24px;
+            }
+        }
+    </style>
+    
+    <div data-glass="app">
+        <ul class="nav">
+            <li class="nav-item"><a href="#home"><i class="fas fa-home fa-3x"></i></a></li>
+            <li class="nav-item"><a href="#profile"><i class="fas fa-user fa-3x"></i></a></li>
+            <li class="nav-item"><a href="#about"><i class="fas fa-info fa-3x"></i></a></li>
+        </ul>
+        <div data-component="tab-controller"
+            data-self-on-update="
+                window.addEventListener('hashchange', () => {
+                    self.dispatchEvent(new CustomEvent(':tab', {
+                        detail: window.location.hash.slice(1)
+                    }));
+                });
+                self.dispatchEvent(new CustomEvent(':tab', {
+                    detail: window.location.hash.slice(1) || 'home'
+                }));
+            "
+            data-self-on-tab="
+                const hash = event.detail;
+                self.querySelectorAll(`[data-tab]`).forEach(child => {
+                    child.classList.remove('active');
+                    if (child.dataset.tab === hash) {
+                        child.classList.add('active');
+                    }
+                });
+            "
+        >
+
+            <div data-tab="home">
+                <span>home</span>
+            </div>
+            <div data-tab="profile">
+                <h1>Tab 1</h1>
+            </div>
+            <div data-tab="about">
+                <h2>Tab 2</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+
+</body>
+</html>
