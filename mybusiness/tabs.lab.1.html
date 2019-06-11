@@ -55,6 +55,21 @@
         }
 
         @media screen and (max-width: 600px) {
+            .nav {
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+                border-top: 2px solid cornflowerblue;
+                border-bottom: 0px solid transparent;
+                padding: 24px;
+                background-color: whitesmoke;
+            }
+        }
+
+        @media screen and (min-width: 600px) and (max-width: 768px) {
             [data-glass="app"] {
                 display: flex;
                 align-items: stretch;
