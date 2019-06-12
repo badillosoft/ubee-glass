@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass v6 - Lab</title>
+</head>
+<body>
+    <!--
+        Ubee Glass v6.0
+    -->
+
+    <!--
+        * La directiva `handler` permite aplicar un controlador cuándo
+        ocurran eventos en los target especificados
+    -->
+    <div data-glass="c">
+        <div data-wall="b">
+            <div data-parent="a">
+                <button data-handler="button-controller">Hello world</button>
+            </div>
+        </div>
+    </div>
+
+    <datalist data-controller="button-controller">
+        <option data-on="mouseover" data-key="style.color" data-value="red"></option>
+        <option data-on="update | mouseout" data-key="style.color" data-value="blue"></option>
+    </datalist>
+
+    <script src="../lib/ubee-glass-v6.js"></script>
+
+</body>
+</html>

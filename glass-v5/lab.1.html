@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass v5 - Lab</title>
+</head>
+<body>
+    <!--
+        Ubee Glass v5.0
+        Directiva de ejecución de acciones
+    -->
+
+    <!--
+        * La directiva `fire` permite manipular el componente
+    -->
+    <button data-fire="button-action">Hello world</button>
+
+    <!--
+        * La directiva action es aplicada sobre un elemento <datalist>
+        * Cada <option> en el <datalist> representará una regla de comportamiento
+    -->
+    <datalist data-action="button-action">
+
+        <!--
+            * La regla de comportamiento establece el modo de comportamiento 
+                y las claves asociadas a él
+            * data-key: establece la clave a la que se le aplicará el valor
+            * data-key: soporta el periodo punto `.` para acceder a una sub-clave 
+                del objeto anidado
+            * data-function: establece la función a la que se le aplicará el valor
+            * data-function: si el valor es un arreglo, cada parámetro será esparcido 
+                mediante el operador spread `...`
+            * data-dispatch: emite un CustomEvent sobre el valor
+            * data-value: devuelve el valor a ser aplicado como un string
+            * data-lambda: devuelve el valor a ser aplicado computado dinámicamente
+            * data-lambda: tiene acceso a `element`, el elemento que usa el prototipo
+            * data-lambda: tiene acceso a `datalist`, el <datalist> del prototipo
+            * data-lambda: tiene acceso a `option`, el <option> del data-lambda
+        -->
+        <option data-key="textContent" data-value="Hi there"></option>
+        <option data-key="style.color" data-lambda="`red`"></option>
+        <option data-function="dispatchEvent" 
+            data-lambda="new CustomEvent('my-event', { detail: 123 })"></option>
+        <option data-dispatch="my-event" data-value="123"></option>
+        <option data-dispatch="my-event" data-lambda="123"></option>
+
+    </datalist>
+
+    <script>
+        const button = document.querySelector("button");
+        button.addEventListener("my-event", event => {
+            console.log("my-event", event.detail);
+        });
+    </script>
+    <script src="../lib/ubee-glass-v5.js"></script>
+
+</body>
+</html>

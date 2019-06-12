@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Stat App v1.0</title>
+</head>
+<body>
+
+    <style>
+        [data-component="message"] {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+
+    <template data-template="message">
+        <div data-on="success">
+            <datalist data-target="span">
+                <option data-key="style.color" data-value="lime"></option>
+                <option data-key="textContent" data-value=":event.detail"></option>
+            </datalist>
+        </div>
+        <div data-on="warning">
+            <datalist data-target="span">
+                <option data-key="style.color" data-value="orange"></option>
+                <option data-key="textContent" data-value=":event.detail"></option>
+            </datalist>
+        </div>
+        <span>IDLE</span>
+    </template>
+    
+    <div data-glass="app">
+
+        <div data-use-template="message">
+            <button data-self-click-to-wall-on-success="`Todo bien`">success</button>
+            <button data-self-click-to-wall-on-warning="`Valió queso!`">warning</button>
+        </div>
+
+    </div>
+
+    <script src="../lib/ubee-glass-v4.js"></script>
+    <script>ubee_glass("app")</script>
+
+</body>
+</html>

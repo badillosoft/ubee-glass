@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass v5 - Lab</title>
+</head>
+<body>
+    <!--
+        Ubee Glass v5.0
+        Directiva de manipulación indirecta de prototipos
+    -->
+
+    <!--
+        * La directiva `handler` permite aplicar un controlador cuándo
+        ocurran eventos en los target especificados
+    -->
+    <button data-handler="button-controller">Hello world</button>
+
+    <datalist data-controller="button-controller">
+        <option data-on="mouseover" data-fire="button-over"></option>
+        <option data-on="mouseout" data-fire="button-out"></option>
+    </datalist>
+    
+    <datalist data-action="button-over">
+        <option data-key="textContent" data-value="over"></option>
+    </datalist>
+
+    <datalist data-action="button-out">
+        <option data-key="textContent" data-value="out"></option>
+    </datalist>
+
+    <script>
+        const button = document.querySelector("button");
+        button.addEventListener("my-event", event => {
+            console.log("my-event", event.detail);
+        });
+    </script>
+    <script src="../lib/ubee-glass-v5.js"></script>
+
+</body>
+</html>
