@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass v5 - Lab</title>
+</head>
+<body>
+    <!--
+        Ubee Glass v5.0
+    -->
+
+    <!-- LOGIC -->
+
+        <!-- ACTION -->
+        <datalist data-action="disabled">
+            <option data-key="disabled" data-lambda="true"></option>
+            <option data-dispatch=":disabled"></option>
+        </datalist>
+        <datalist data-action="input-clear">
+            <option data-key="value" data-value=""></option>
+        </datalist>
+        <!-- /ACTION -->
+
+        <!-- CONTROLLER -->
+        <datalist data-controller="input-text">
+            <option data-on="keyup" data-when="event.key === 'Enter'" data-fire="disabled"></option>
+            <option data-on=":disabled" data-lambda="alert('disabled')"></option>
+            <option data-on="click" data-fire="input-clear"></option>
+        </datalist>
+        <!-- /CONTROLLER -->
+
+    <!-- /LOGIC -->
+
+    <!-- UX -->
+    <div>
+        <input data-handler="input-text" type="text">
+        <input data-handler="input-text" type="password">
+        <button>login</button>
+    </div>
+    <!-- /UX -->
+
+    <script src="../lib/ubee-glass-v5.js"></script>
+
+</body>
+</html>

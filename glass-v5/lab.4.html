@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ubee Glass v5 - Lab</title>
+</head>
+<body>
+    <!--
+        Ubee Glass v5.0
+    -->
+
+    <!-- STYLE -->
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css");
+
+        body {
+            user-select: none;
+        }
+
+        span {
+            cursor: pointer;
+            margin-right: 12px;
+            color: #777777;
+        }
+        span:hover {
+            color: #222222;
+        }
+        span:active {
+            color: #444444;
+        }
+    </style>
+    <!-- /STYLE -->
+
+    <!-- LOGIC -->
+
+        <!-- ACTION -->
+        <!-- /ACTION -->
+
+        <!-- CONTROLLER -->
+        <datalist data-controller="icon">
+            <option data-on="click" data-dispatch-parent="#list:refresh"></option>
+        </datalist>
+        <datalist data-controller="list">
+            <option data-on-parent="#list:refresh" data-lambda="null" data-next="clear-list"></option>
+            <option data-continue="clear-list" data-lambda="while (self.firstChild) { self.removeChild(self.firstChild) }" data-next="load-list"></option>
+            <option data-continue="load-list" data-lambda="return new Function(`return ${self.dataset.source}`)()" data-next="list-to-option"></option>
+            <option data-continue="list-to-option" data-lambda="return result.map(e => {
+                const option = document.createElement('option');
+                option.value = e.id;
+                option.textContent = e.name;
+                return option;
+            })" data-next="render-list"></option>
+            <option data-continue="render-list" data-lambda="result.forEach(option => self.appendChild(option))"></option>
+        </datalist>
+        <!-- /CONTROLLER -->
+
+    <!-- /LOGIC -->
+
+    <!-- UX -->
+    <div>
+        <span data-handler="icon">
+            <i class="fas fa-sync"></i>
+        </span>
+        <input type="text" list="abc123">
+        <datalist data-handler="list" id="abc123" data-source="[{ id: 'a001', name: 'Ana' }, { id: 'a002', name: 'beto' }]">
+            <option value="a001">A1</option>
+            <option value="a002">A2</option>
+            <option value="a003">A3</option>
+            <option value="b001">b1</option>
+            <option value="b002">b2</option>
+            <option value="b003">b3</option>
+        </datalist>
+    </div>
+    <div>
+        <span data-handler="icon">
+            <i class="fas fa-sync"></i>
+        </span>
+        <input type="text" list="abc456">
+        <datalist data-handler="list" id="abc456" data-source="[{ id: 'a001', name: 'Pepe' }, { id: 'a002', name: 'Pedro' }]">
+            <option value="a001">A1</option>
+            <option value="a002">A2</option>
+            <option value="a003">A3</option>
+            <option value="b001">b1</option>
+            <option value="b002">b2</option>
+            <option value="b003">b3</option>
+        </datalist>
+    </div>
+    <!-- /UX -->
+
+    <script src="../lib/ubee-glass-v5.js"></script>
+
+</body>
+</html>

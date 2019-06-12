@@ -17,18 +17,27 @@
         ocurran eventos en los target especificados
     -->
     <button data-handler="button-controller">Hello world</button>
+    <button data-handler="button-2-controller">Hello world 2</button>
 
     <datalist data-controller="button-controller">
         <option data-on="mouseover" data-fire="button-over"></option>
         <option data-on="mouseout" data-fire="button-out"></option>
     </datalist>
+
+    <datalist data-controller="button-2-controller">
+        <option data-on="mouseover" data-fire="button-out"></option>
+        <option data-on="mouseout" data-fire="button-over"></option>
+    </datalist>
     
     <datalist data-action="button-over">
-        <option data-key="textContent" data-value="over"></option>
+        <option data-key="textContent" data-value="hello over"></option>
+        <option data-function="classList.add" data-value="hover"></option>
     </datalist>
-
+    
     <datalist data-action="button-out">
-        <option data-key="textContent" data-value="out"></option>
+        <option data-key="textContent" data-value="hello out"></option>
+        <option data-function="classList.remove" data-value="hover"></option>
+        <option data-dispatch-parent=":hello"></option>
     </datalist>
 
     <script>

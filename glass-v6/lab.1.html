@@ -11,21 +11,11 @@
         Ubee Glass v6.0
     -->
 
-    <!--
-        * La directiva `handler` permite aplicar un controlador cuándo
-        ocurran eventos en los target especificados
-    -->
-    <div data-glass="c">
-        <div data-wall="b">
-            <div data-parent="a">
-                <button data-handler="button-controller">Hello world</button>
-            </div>
-        </div>
-    </div>
+    <button data-handler="button-controller">Hello world</button>
 
     <datalist data-controller="button-controller">
         <option data-on="mouseover" data-key="style.color" data-value="red"></option>
-        <option data-on="update | mouseout" data-key="style.color" data-value="blue"></option>
+        <option data-on="#update | mouseout" data-key="style.color" data-value="blue"></option>
     </datalist>
 
     <script src="../lib/ubee-glass-v6.js"></script>
